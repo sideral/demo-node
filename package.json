@@ -1,0 +1,17 @@
+{
+  "name": "demo-node",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node --env-file=.env src/index.js",
+    "dev": "node --watch --env-file=.env src/index.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.0",
+    "express": "^5.2.1"
+  }
+}
