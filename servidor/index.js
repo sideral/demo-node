@@ -1,10 +1,13 @@
 import express from "express";
+import cors from "cors";
 import { createClient } from "@supabase/supabase-js";
 
 const USER_ID = "226b35b7-01b7-40a0-91cc-5a3118eb321d";
 
 const app = express();
 const port = process.env.PORT ?? 3000;
+
+app.use(cors({ origin: "http://localhost:5173" }));
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
