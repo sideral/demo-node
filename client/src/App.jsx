@@ -11,7 +11,9 @@ function App() {
     setEmail('')
     setError('')
 
-    const response = await fetch(`/api/email?userId=${encodeURIComponent(userId)}`)
+    const response = await fetch(
+      `${import.meta.env.SERVER_URL}/email?userId=${encodeURIComponent(userId)}`,
+    )
     const data = await response.json()
 
     if (!response.ok) {
