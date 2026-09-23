@@ -1,6 +1,42 @@
 import { useState } from 'react'
+import dayjs from 'dayjs'
+import 'dayjs/locale/es'
 import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/react'
 import { AppShell, Button, Group, Stack, Text, TextInput, Title } from '@mantine/core'
+import { DayView } from '@mantine/schedule'
+
+const today = dayjs().format('YYYY-MM-DD')
+
+const events = [
+  {
+    id: 1,
+    title: 'Reunión de equipo',
+    start: `${today} 09:00:00`,
+    end: `${today} 09:30:00`,
+    color: 'blue',
+  },
+  {
+    id: 2,
+    title: 'Revisión de código',
+    start: `${today} 11:00:00`,
+    end: `${today} 12:00:00`,
+    color: 'violet',
+  },
+  {
+    id: 3,
+    title: 'Almuerzo',
+    start: `${today} 13:00:00`,
+    end: `${today} 14:00:00`,
+    color: 'orange',
+  },
+  {
+    id: 4,
+    title: 'Llamada con cliente',
+    start: `${today} 15:30:00`,
+    end: `${today} 16:30:00`,
+    color: 'cyan',
+  },
+]
 
 function App() {
   const [userId, setUserId] = useState('')
@@ -46,11 +82,28 @@ function App() {
         </Group>
       </AppShell.Header>
       <AppShell.Main>
-        <Stack maw={360} mx="auto" mt="xl" gap="lg">
+        <Stack maw={720} mx="auto" mt="xl" gap="xl">
           <Title order={2}>Inicio</Title>
-          <Text c="dimmed">Consulta el email de un usuario.</Text>
+          <DayView
+            date={today}
+            events={events}
+            locale="es"
+            startTime="08:00:00"
+            endTime="18:00:00"
+            h={560}
+            labels={{
+              today: 'Hoy',
+              allDay: 'Todo el día',
+              next: 'Siguiente',
+              previous: 'Anterior',
+              day: 'Día',
+              week: 'Semana',
+              month: 'Mes',
+              year: 'Año',
+            }}
+          />
           <form onSubmit={handleSubmit}>
-            <Stack>
+            <Stack maw={360}>
               <TextInput
                 label="ID de usuario"
                 value={userId}
