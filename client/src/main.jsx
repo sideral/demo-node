@@ -1,3 +1,5 @@
+import { ClerkProvider } from '@clerk/react'
+import { esES } from '@clerk/localizations'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { MantineProvider } from '@mantine/core'
@@ -7,8 +9,10 @@ import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <MantineProvider>
-      <App />
-    </MantineProvider>
+    <ClerkProvider localization={esES} afterSignOutUrl="/">
+      <MantineProvider>
+        <App />
+      </MantineProvider>
+    </ClerkProvider>
   </StrictMode>,
 )

@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Button, Stack, Text, TextInput } from '@mantine/core'
+import { Show, SignInButton, SignUpButton, UserButton } from '@clerk/react'
+import { AppShell, Button, Group, Stack, Text, TextInput, Title } from '@mantine/core'
 
 function App() {
   const [userId, setUserId] = useState('')
@@ -25,19 +26,45 @@ function App() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Stack maw={360} mx="auto" mt="xl">
-        <TextInput
-          label="ID de usuario"
-          value={userId}
-          onChange={(event) => setUserId(event.currentTarget.value)}
-          required
-        />
-        <Button type="submit">Enviar</Button>
-        {email ? <Text>{email}</Text> : null}
-        {error ? <Text c="red">{error}</Text> : null}
-      </Stack>
-    </form>
+    <AppShell header={{ height: 64 }} padding="md">
+      <AppShell.Header>
+        <Group h="100%" px="md" justify="space-between">
+          <Text fw={700}>Demo</Text>
+          <Group gap="sm">
+            <Show when="signed-out">
+              <SignInButton mode="modal">
+                <Button variant="default">Iniciar sesión</Button>
+              </SignInButton>
+              <SignUpButton mode="modal">
+                <Button>Registrarse</Button>
+              </SignUpButton>
+            </Show>
+            <Show when="signed-in">
+              <UserButton />
+            </Show>
+          </Group>
+        </Group>
+      </AppShell.Header>
+      <AppShell.Main>
+        <Stack maw={360} mx="auto" mt="xl" gap="lg">
+          <Title order={2}>Inicio</Title>
+          <Text c="dimmed">Consulta el email de un usuario.</Text>
+          <form onSubmit={handleSubmit}>
+            <Stack>
+              <TextInput
+                label="ID de usuario"
+                value={userId}
+                onChange={(event) => setUserId(event.currentTarget.value)}
+                required
+              />
+              <Button type="submit">Enviar</Button>
+              {email ? <Text>{email}</Text> : null}
+              {error ? <Text c="red">{error}</Text> : null}
+            </Stack>
+          </form>
+        </Stack>
+      </AppShell.Main>
+    </AppShell>
   )
 }
 
